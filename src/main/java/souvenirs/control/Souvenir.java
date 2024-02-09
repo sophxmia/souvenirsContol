@@ -10,12 +10,13 @@ public class Souvenir {
 
     /**
      * Class constructor
-     * @param name name of the product
-     * @param producer producer
+     *
+     * @param name        name of the product
+     * @param producer    producer
      * @param releaseDate releaseDate
-     * @param price price
+     * @param price       price
      */
-    public Souvenir(String name, Producer producer, LocalDate releaseDate, double price){
+    public Souvenir(String name, Producer producer, LocalDate releaseDate, double price) {
         this.name = name;
         this.producer = producer;
         this.releaseDate = releaseDate;
@@ -56,10 +57,11 @@ public class Souvenir {
 
     /**
      * Override the toString() method to have a better view of the object Souvenir
+     *
      * @return Souvenir
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "Souvenir{" +
                 "name='" + name + '\'' +
                 ", producer=" + producer +

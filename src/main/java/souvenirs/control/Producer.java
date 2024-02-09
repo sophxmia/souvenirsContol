@@ -6,10 +6,11 @@ public class Producer {
 
     /**
      * Class constructor
-     * @param name producer's name
+     *
+     * @param name    producer's name
      * @param country country
      */
-    public Producer (String name, String country){
+    public Producer(String name, String country) {
         this.name = name;
         this.country = country;
     }
@@ -29,8 +30,10 @@ public class Producer {
     public void setCountry(String country) {
         this.country = country;
     }
+
     /**
      * Override the toString() method to have a better view of the object Producer
+     *
      * @return Producer
      */
     @Override
