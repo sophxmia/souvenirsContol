@@ -8,6 +8,16 @@
     <artifactId>souvenirsContol</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>First Control work</name>
+
+    <developers>
+        <developer>
+            <id>sophxmia</id>
+            <name>Sofiia Maliarenko</name>
+            <email>maliarenko.sofiia@gmail.com</email>
+        </developer>
+    </developers>
+
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
