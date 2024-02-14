@@ -54,6 +54,10 @@ public class DataManagerFacade {
         dataManager.displaySouvenirsByYear();
     }
 
+    public void deleteProducerAndSouvenirs(Producer producer){
+        dataManager.deleteProducerAndSouvenirs(producer);
+    }
+
     public void addSouvenir(Souvenir souvenir) {
         dataManager.addSouvenir(souvenir);
     }

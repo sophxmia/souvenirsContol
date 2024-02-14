@@ -50,16 +50,19 @@ public class DataManager {
             System.out.println(producer);
         }
     }
+
     public void displayAllSouvenirsByProducer(String producerName) {
         for (Souvenir souvenir : souvenirs) {
-            if(souvenir.getProducer().getName().equals(producerName)) System.out.println(souvenir);
+            if (souvenir.getProducer().getName().equals(producerName)) System.out.println(souvenir);
         }
     }
+
     public void displayAllSouvenirsByCountry(String countryName) {
         for (Souvenir souvenir : souvenirs) {
-            if(souvenir.getProducer().getCountry().equals(countryName)) System.out.println(souvenir);
+            if (souvenir.getProducer().getCountry().equals(countryName)) System.out.println(souvenir);
         }
     }
+
     public void displayProducersWithPriceBelow(double maxPrice) {
         for (Producer producer : producers) {
             boolean hasSouvenirBelowPrice = souvenirs.stream()
@@ -69,33 +72,41 @@ public class DataManager {
             }
         }
     }
-    public void displayAllProducersWithSouvenirs(){
+
+    public void displayAllProducersWithSouvenirs() {
         for (Producer producer : producers) {
             System.out.println("Producer: " + producer);
             System.out.println("Souvenirs:");
             for (Souvenir souvenir : souvenirs) {
-                if(souvenir.getProducer().equals(producer)) System.out.println(souvenir);
+                if (souvenir.getProducer().equals(producer)) System.out.println(souvenir);
             }
             System.out.println();
         }
     }
+
     public void displayProducersOfSouvenirInYear(String souvenirName, int year) {
         for (Souvenir souvenir : souvenirs) {
-            if(souvenir.getName().equals(souvenirName) && souvenir.getReleaseDate().getYear() == year){
+            if (souvenir.getName().equals(souvenirName) && souvenir.getReleaseDate().getYear() == year) {
                 System.out.println("Producers of souvenir '" + souvenirName + "' produced in " + year + ":");
                 System.out.println(souvenir.getProducer());
             }
         }
     }
+
     public void displaySouvenirsByYear() {
-        for (int year = LocalDate.now().getYear(); year >= 1990; year--){
+        for (int year = LocalDate.now().getYear(); year >= 1990; year--) {
             System.out.println("Year: " + year);
             for (Souvenir souvenir : souvenirs) {
-                if(souvenir.getReleaseDate().getYear() == year) System.out.println(souvenir);
+                if (souvenir.getReleaseDate().getYear() == year) System.out.println(souvenir);
             }
             System.out.println();
         }
 
+    }
+
+    public void deleteProducerAndSouvenirs(Producer producer) {
+        souvenirs.removeIf(souvenir -> souvenir.getProducer().equals(producer));
+        producers.remove(producer);
     }
 
 }
