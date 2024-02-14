@@ -14,34 +14,67 @@ public class DataManagerFacade {
                 fileHandler.readProducersFromFile("src/producers.csv"));
     }
 
-    public List<Souvenir> readSouvenirsFromFile(String filename){
+    public List<Souvenir> readSouvenirsFromFile(String filename) {
         return fileHandler.readSouvenirsFromFile(filename);
     }
-    public List<Producer> readProducersFromFile(String filename){
+
+    public List<Producer> readProducersFromFile(String filename) {
         return fileHandler.readProducersFromFile(filename);
     }
-    public void writeSouvenirsToFile(List<Souvenir> souvenirs, String fileName){
+
+    public void writeSouvenirsToFile(List<Souvenir> souvenirs, String fileName) {
         fileHandler.writeSouvenirsToFile(souvenirs, fileName);
     }
-    public void writeProducersToFile(List<Producer> producers, String fileName){
+
+    public void writeProducersToFile(List<Producer> producers, String fileName) {
         fileHandler.writeProducersToFile(producers, fileName);
     }
-    public void addSouvenir(Souvenir souvenir){
+
+    public void displaySouvenirsByProducer(String producerName) {
+        dataManager.displayAllSouvenirsByProducer(producerName);
+    }
+
+    public void displaySouvenirsByCountry(String country) {
+        dataManager.displayAllSouvenirsByCountry(country);
+    }
+
+    public void displayProducersWithPriceBelow(double maxPrice) {
+        dataManager.displayProducersWithPriceBelow(maxPrice);
+    }
+
+    public void displayAllProducersWithSouvenirs() {
+        dataManager.displayAllProducersWithSouvenirs();
+    }
+
+    public void displayProducersOfSouvenirInYear(String souvenirName, int year) {
+        dataManager.displayProducersOfSouvenirInYear(souvenirName, year);
+    }
+
+    public void displaySouvenirsByYear() {
+        dataManager.displaySouvenirsByYear();
+    }
+
+    public void addSouvenir(Souvenir souvenir) {
         dataManager.addSouvenir(souvenir);
     }
-    public void addProducer(Producer producer){
+
+    public void addProducer(Producer producer) {
         dataManager.addProducer(producer);
     }
-    public void editSouvenir(Souvenir souvenir, String newName, Producer newProducer, LocalDate newReleaseDate, double newPrice){
-        dataManager.editSouvenir(souvenir, newName,newProducer, newReleaseDate, newPrice);
+
+    public void editSouvenir(Souvenir souvenir, String newName, Producer newProducer, LocalDate newReleaseDate, double newPrice) {
+        dataManager.editSouvenir(souvenir, newName, newProducer, newReleaseDate, newPrice);
     }
-    public void editProducer(Producer producer, String newName, String newCountry){
+
+    public void editProducer(Producer producer, String newName, String newCountry) {
         dataManager.editProducer(producer, newName, newCountry);
     }
-    public void displayAllSouvenirs(){
+
+    public void displayAllSouvenirs() {
         dataManager.displayAllSouvenirs();
     }
-    public void displayAllProducers(){
+
+    public void displayAllProducers() {
         dataManager.displayAllProducers();
     }
 }
