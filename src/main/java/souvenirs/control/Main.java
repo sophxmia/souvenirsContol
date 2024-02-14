@@ -1,35 +1,29 @@
 package souvenirs.control;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        FileHandler fileHandler = FileHandler.getInstance();
-
-        List<Souvenir> souvenirs = fileHandler.readSouvenirsFromFile("src/souvenirs.csv");
-        List<Producer> producers = fileHandler.readProducersFromFile("src/producers.csv");
-
-        DataManager dataManager = new DataManager(souvenirs, producers);
+        DataManagerFacade dataManagerFacade = new DataManagerFacade();
 
         Producer newProducer = new Producer("ОбщадБанк", "Великобританція");
-        dataManager.addProducer(newProducer);
+        dataManagerFacade.addProducer(newProducer);
 
         Souvenir newSouvenir = new Souvenir("Фірмова кепка",
                 newProducer,
                 LocalDate.of(2023, 5, 20),
                 25.99);
-        dataManager.addSouvenir(newSouvenir);
+        dataManagerFacade.addSouvenir(newSouvenir);
 
         System.out.println("Before editing:");
-        dataManager.displayAllSouvenirs();
-        dataManager.displayAllProducers();
+        dataManagerFacade.displayAllSouvenirs();
+        dataManagerFacade.displayAllProducers();
 
-        dataManager.editProducer(newProducer, "МоноБанк", "Україна");
-        dataManager.editSouvenir(newSouvenir, "Котик", newProducer,  newSouvenir.getReleaseDate(), 29.99);
+        dataManagerFacade.editProducer(newProducer, "МоноБанк", "Україна");
+        dataManagerFacade.editSouvenir(newSouvenir, "Котик", newProducer, newSouvenir.getReleaseDate(), 29.99);
 
         System.out.println("\nAfter editing:");
-        dataManager.displayAllSouvenirs();
-        dataManager.displayAllProducers();
+        dataManagerFacade.displayAllSouvenirs();
+        dataManagerFacade.displayAllProducers();
     }
 }
