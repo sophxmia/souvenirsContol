@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class DataManager {
-    private List<Souvenir> souvenirs;
-    private List<Producer> producers;
+    private final List<Souvenir> souvenirs;
+    private final List<Producer> producers;
 
     // constructor for a new class
     public DataManager(List<Souvenir> souvenirs, List<Producer> producers) {

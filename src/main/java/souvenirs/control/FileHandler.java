@@ -7,6 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandler {
+    // Singleton pattern usage
+     private static FileHandler instance;
+
+     private FileHandler(){}
+
+    public static FileHandler getInstance(){
+         if(instance == null){
+             instance = new FileHandler();
+         }
+         return instance;
+    }
 
     public List<Souvenir> readSouvenirsFromFile(String fileName) {
         List<Souvenir> souvenirs = new ArrayList<>();

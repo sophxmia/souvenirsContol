@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        FileHandler fileHandler = new FileHandler();
+        FileHandler fileHandler = FileHandler.getInstance();
 
         List<Souvenir> souvenirs = fileHandler.readSouvenirsFromFile("src/souvenirs.csv");
         List<Producer> producers = fileHandler.readProducersFromFile("src/producers.csv");
