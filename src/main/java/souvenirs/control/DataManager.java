@@ -23,10 +23,18 @@ public class DataManager {
         producers.add(producer);
     }
 
+    public void addProducerToSouvenir(Souvenir souvenir, Producer producer) {
+        souvenir.getProducers().add(producer);
+    }
+
+    public void removeProducerFromSouvenir(Souvenir souvenir, Producer producer) {
+        souvenir.getProducers().remove(producer);
+    }
+
     // edit already existing souvenir
-    public void editSouvenir(Souvenir souvenir, String newName, Producer newProducer, LocalDate newReleaseDate, double newPrice) {
+    public void editSouvenir(Souvenir souvenir, String newName, List<Producer> newProducers, LocalDate newReleaseDate, double newPrice) {
         souvenir.setName(newName);
-        souvenir.setProducer(newProducer);
+        souvenir.setProducers(newProducers);
         souvenir.setReleaseDate(newReleaseDate);
         souvenir.setPrice(newPrice);
     }
@@ -53,20 +61,22 @@ public class DataManager {
 
     public void displayAllSouvenirsByProducer(String producerName) {
         for (Souvenir souvenir : souvenirs) {
-            if (souvenir.getProducer().getName().equals(producerName)) System.out.println(souvenir);
+            if (souvenir.getProducers().stream().anyMatch(producer -> producer.getName().equals(producerName)))
+                System.out.println(souvenir);
         }
     }
 
     public void displayAllSouvenirsByCountry(String countryName) {
         for (Souvenir souvenir : souvenirs) {
-            if (souvenir.getProducer().getCountry().equals(countryName)) System.out.println(souvenir);
+            if (souvenir.getProducers().stream().anyMatch(producer -> producer.getName().equals(countryName)))
+                System.out.println(souvenir);
         }
     }
 
     public void displayProducersWithPriceBelow(double maxPrice) {
         for (Producer producer : producers) {
             boolean hasSouvenirBelowPrice = souvenirs.stream()
-                    .anyMatch(souvenir -> souvenir.getProducer().equals(producer) && souvenir.getPrice() < maxPrice);
+                    .anyMatch(souvenir -> souvenir.getProducers().contains(producer) && souvenir.getPrice() < maxPrice);
             if (hasSouvenirBelowPrice) {
                 System.out.println(producer);
             }
@@ -78,7 +88,7 @@ public class DataManager {
             System.out.println("Producer: " + producer);
             System.out.println("Souvenirs:");
             for (Souvenir souvenir : souvenirs) {
-                if (souvenir.getProducer().equals(producer)) System.out.println(souvenir);
+                if (souvenir.getProducers().contains(producer)) System.out.println(souvenir);
             }
             System.out.println();
         }
@@ -88,7 +98,9 @@ public class DataManager {
         for (Souvenir souvenir : souvenirs) {
             if (souvenir.getName().equals(souvenirName) && souvenir.getReleaseDate().getYear() == year) {
                 System.out.println("Producers of souvenir '" + souvenirName + "' produced in " + year + ":");
-                System.out.println(souvenir.getProducer());
+                for (Producer producer : souvenir.getProducers()) {
+                    System.out.println(producer);
+                }
             }
         }
     }
@@ -105,8 +117,7 @@ public class DataManager {
     }
 
     public void deleteProducerAndSouvenirs(Producer producer) {
-        souvenirs.removeIf(souvenir -> souvenir.getProducer().equals(producer));
+        souvenirs.removeIf(souvenir -> souvenir.getProducers().contains(producer));
         producers.remove(producer);
     }
-
 }

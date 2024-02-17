@@ -1,29 +1,45 @@
 package souvenirs.control;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 // usage of Builder pattern
 public class SouvenirBuilder {
     private String name;
-    private Producer producer;
+    private List<Producer> producers;
     private LocalDate releaseDate;
     private Double price;
-    public SouvenirBuilder setName(String name){
+
+    public SouvenirBuilder setName(String name) {
         this.name = name;
         return this;
     }
-    public SouvenirBuilder setProducer(Producer producer){
-        this.producer = producer;
+
+    public SouvenirBuilder setProducers(List<Producer> producers) {
+        this.producers = producers;
         return this;
     }
-    public SouvenirBuilder setReleaseDate(LocalDate releaseDate){
+
+    public SouvenirBuilder addProducer(Producer producer) {
+        if (this.producers == null) {
+            this.producers = new ArrayList<>();
+        }
+        this.producers.add(producer);
+        return this;
+    }
+
+    public SouvenirBuilder setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
         return this;
     }
-    public SouvenirBuilder setPrice(double price){
+
+    public SouvenirBuilder setPrice(double price) {
         this.price = price;
         return this;
     }
-    public Souvenir build(){
-        return new Souvenir(name, producer, releaseDate, price);
+
+    public Souvenir build() {
+        return new Souvenir(name, producers, releaseDate, price);
     }
 }

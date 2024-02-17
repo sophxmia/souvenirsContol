@@ -1,10 +1,11 @@
 package souvenirs.control;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Souvenir {
     private String name;
-    private Producer producer;
+    private List<Producer> producers;
     private LocalDate releaseDate;
     private Double price;
 
@@ -12,13 +13,13 @@ public class Souvenir {
      * Class constructor
      *
      * @param name        name of the product
-     * @param producer    producer
+     * @param producers   producers
      * @param releaseDate releaseDate
      * @param price       price
      */
-    public Souvenir(String name, Producer producer, LocalDate releaseDate, double price) {
+    public Souvenir(String name, List<Producer> producers, LocalDate releaseDate, double price) {
         this.name = name;
-        this.producer = producer;
+        this.producers = producers;
         this.releaseDate = releaseDate;
         this.price = price;
     }
@@ -31,12 +32,12 @@ public class Souvenir {
         this.name = name;
     }
 
-    public Producer getProducer() {
-        return producer;
+    public List<Producer> getProducers() {
+        return producers;
     }
 
-    public void setProducer(Producer producer) {
-        this.producer = producer;
+    public void setProducers(List<Producer> producers) {
+        this.producers = producers;
     }
 
     public LocalDate getReleaseDate() {
@@ -64,7 +65,7 @@ public class Souvenir {
     public String toString() {
         return "Souvenir{" +
                 "name='" + name + '\'' +
-                ", producer=" + producer +
+                ", producer=" + producers +
                 ", releaseDate=" + releaseDate +
                 ", price=" + price +
                 '}';

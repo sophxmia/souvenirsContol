@@ -66,8 +66,8 @@ public class DataManagerFacade {
         dataManager.addProducer(producer);
     }
 
-    public void editSouvenir(Souvenir souvenir, String newName, Producer newProducer, LocalDate newReleaseDate, double newPrice) {
-        dataManager.editSouvenir(souvenir, newName, newProducer, newReleaseDate, newPrice);
+    public void editSouvenir(Souvenir souvenir, String newName, List<Producer> newProducers, LocalDate newReleaseDate, double newPrice) {
+        dataManager.editSouvenir(souvenir, newName, newProducers, newReleaseDate, newPrice);
     }
 
     public void editProducer(Producer producer, String newName, String newCountry) {

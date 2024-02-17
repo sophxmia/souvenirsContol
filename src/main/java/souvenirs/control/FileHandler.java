@@ -8,15 +8,16 @@ import java.util.List;
 
 public class FileHandler {
     // Singleton pattern usage
-     private static FileHandler instance;
+    private static FileHandler instance;
 
-     private FileHandler(){}
+    private FileHandler() {
+    }
 
-    public static FileHandler getInstance(){
-         if(instance == null){
-             instance = new FileHandler();
-         }
-         return instance;
+    public static FileHandler getInstance() {
+        if (instance == null) {
+            instance = new FileHandler();
+        }
+        return instance;
     }
 
     public List<Souvenir> readSouvenirsFromFile(String fileName) {
@@ -29,22 +30,29 @@ public class FileHandler {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split((","));
                 String name = data[0];
-                String producerName = data[1];
-                String country = data[2];
-                LocalDate releaseDate = LocalDate.parse(data[3], formatter);
-                double price = Double.parseDouble(data[4]);
+                String[] producersData = data[1].split("\\("); // Split producer data by "(" to separate names and countries
+                List<Producer> producers = new ArrayList<>();
+                for (String producerData : producersData) {
+                    String[] producerInfo = producerData.split("\\)");
+                    String producerName = producerInfo[0];
+                    String country = producerInfo[1];
+                    Producer producer = new Producer(producerName, country);
+                    producers.add(producer);
+                }
+                LocalDate releaseDate = LocalDate.parse(data[2], formatter);
+                double price = Double.parseDouble(data[3]);
 
-                Producer producer = new Producer(producerName, country);
-                Souvenir souvenir = new Souvenir(name, producer, releaseDate, price);
+                Souvenir souvenir = new Souvenir(name, producers, releaseDate, price); // Pass the list of producers
                 souvenirs.add(souvenir);
             }
         } catch (IOException e) {
-//            e.printStackTrace();
+//        e.printStackTrace();
             throw new RuntimeException(e);
         }
 
         return souvenirs;
     }
+
 
     public void writeSouvenirsToFile(List<Souvenir> souvenirs, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -52,9 +60,12 @@ public class FileHandler {
 
             for (Souvenir souvenir : souvenirs) {
                 String releaseDateFormatted = souvenir.getReleaseDate().format(formatter);
-                writer.write(souvenir.getName() + "," + souvenir.getProducer().getName() + "," +
-                        souvenir.getProducer().getCountry() + "," + releaseDateFormatted + "," +
-                        souvenir.getPrice() + "\n");
+                StringBuilder producersData = new StringBuilder();
+                for (Producer producer : souvenir.getProducers()) {
+                    producersData.append(producer.getName()).append("(").append(producer.getCountry()).append(")");
+                }
+                writer.write(souvenir.getName() + "," + producersData + "," +
+                        releaseDateFormatted + "," + souvenir.getPrice() + "\n");
             }
         } catch (IOException e) {
             //e.printStackTrace();
