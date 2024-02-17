@@ -30,23 +30,24 @@ public class FileHandler {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split((","));
                 String name = data[0];
-                String[] producersData = data[1].split("\\("); // Split producer data by "(" to separate names and countries
+
+                String[] producersData = data[1].split(",");
                 List<Producer> producers = new ArrayList<>();
                 for (String producerData : producersData) {
-                    String[] producerInfo = producerData.split("\\)");
+                    String[] producerInfo = producerData.split("\\(");
                     String producerName = producerInfo[0];
-                    String country = producerInfo[1];
+                    String country = producerInfo[1].substring(0, producerInfo[1].length() - 1);
                     Producer producer = new Producer(producerName, country);
                     producers.add(producer);
                 }
+
                 LocalDate releaseDate = LocalDate.parse(data[2], formatter);
                 double price = Double.parseDouble(data[3]);
 
-                Souvenir souvenir = new Souvenir(name, producers, releaseDate, price); // Pass the list of producers
+                Souvenir souvenir = new Souvenir(name, producers, releaseDate, price);
                 souvenirs.add(souvenir);
             }
         } catch (IOException e) {
-//        e.printStackTrace();
             throw new RuntimeException(e);
         }
 
