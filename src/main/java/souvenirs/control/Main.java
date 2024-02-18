@@ -3,7 +3,9 @@ package souvenirs.control;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,12 +15,10 @@ public class Main extends Application {
     private DataManagerFacade dataManagerFacade;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         dataManagerFacade = new DataManagerFacade();
 
         primaryStage.setTitle("Souvenirs Control");
-
-        TableView<Souvenir> tableView;
 
         Button addSouvenirButton = new Button("Add Souvenir");
         addSouvenirButton.setOnAction(event -> {
@@ -48,16 +48,21 @@ public class Main extends Application {
             viewDataWindow.start(new Stage());
         });
 
+        Button filterButton = new Button("Filter");
+        filterButton.setOnAction(event -> {
+            ShowFilterMenu showFilterMenu = new ShowFilterMenu(dataManagerFacade);
+            showFilterMenu.start(new Stage());
+        });
+
         VBox root = new VBox(10);
-        root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton);
-        Scene scene = new Scene(root, 300, 200);
+        root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton, filterButton);
+        Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private Souvenir getSelectedSouvenir() {
         List<Souvenir> souvenirs = dataManagerFacade.getAllSouvenirs();
-
         if (!souvenirs.isEmpty()) {
             return souvenirs.getFirst();
         } else {

@@ -50,8 +50,8 @@ public class DataManagerFacade {
         dataManager.displayProducersOfSouvenirInYear(souvenirName, year);
     }
 
-    public void displaySouvenirsByYear() {
-        dataManager.displaySouvenirsByYear();
+    public void displaySouvenirsByYear(int year) {
+        dataManager.displaySouvenirsByYear(year);
     }
 
     public void deleteProducerAndSouvenirs(Producer producer) {
@@ -60,10 +60,12 @@ public class DataManagerFacade {
 
     public void addSouvenir(Souvenir souvenir) {
         dataManager.addSouvenir(souvenir);
+        writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
     }
 
     public void addProducer(Producer producer) {
         dataManager.addProducer(producer);
+        writeProducersToFile(dataManager.getAllProducers(), "src/producers.csv");
     }
 
     public void editSouvenir(Souvenir souvenir, String newName, List<Producer> newProducers, LocalDate newReleaseDate, double newPrice) {
@@ -85,4 +87,8 @@ public class DataManagerFacade {
     public List<Souvenir> getAllSouvenirs() {
         return dataManager.getAllSouvenirs();
     }
+    public List<Producer> getAllProducers() {
+        return dataManager.getAllProducers();
+    }
+
 }

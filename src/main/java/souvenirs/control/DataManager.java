@@ -105,8 +105,8 @@ public class DataManager {
         }
     }
 
-    public void displaySouvenirsByYear() {
-        for (int year = LocalDate.now().getYear(); year >= 1990; year--) {
+    public void displaySouvenirsByYear(int year) {
+        for (int yearNow = year; yearNow >= 1990; yearNow--) {
             System.out.println("Year: " + year);
             for (Souvenir souvenir : souvenirs) {
                 if (souvenir.getReleaseDate().getYear() == year) System.out.println(souvenir);
@@ -123,5 +123,8 @@ public class DataManager {
 
     public List<Souvenir> getAllSouvenirs() {
         return souvenirs;
+    }
+    public List<Producer> getAllProducers() {
+        return producers;
     }
 }
