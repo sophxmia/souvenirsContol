@@ -120,4 +120,8 @@ public class DataManager {
         souvenirs.removeIf(souvenir -> souvenir.getProducers().contains(producer));
         producers.remove(producer);
     }
+
+    public List<Souvenir> getAllSouvenirs() {
+        return souvenirs;
+    }
 }

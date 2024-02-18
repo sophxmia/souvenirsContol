@@ -81,4 +81,8 @@ public class DataManagerFacade {
     public void displayAllProducers() {
         dataManager.displayAllProducers();
     }
+
+    public List<Souvenir> getAllSouvenirs() {
+        return dataManager.getAllSouvenirs();
+    }
 }

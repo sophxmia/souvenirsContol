@@ -1,13 +1,15 @@
 package souvenirs.control;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class ViewDataWindow extends Application {
     private final DataManagerFacade dataManagerFacade;
@@ -20,15 +22,30 @@ public class ViewDataWindow extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("View Data about Souvenir");
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(5);
-        grid.setHgap(5);
+        VBox vbox = new VBox();
+        vbox.setPadding(new Insets(10));
+        vbox.setSpacing(10);
 
-        Scene scene = new Scene(grid, 300, 200);
+        List<Souvenir> souvenirs = dataManagerFacade.getAllSouvenirs();
+
+        ListView<String> listView = new ListView<>();
+        ObservableList<String> souvenirNames = FXCollections.observableArrayList();
+
+        for (Souvenir souvenir : souvenirs) {
+            String souvenirInfo = String.format("Name: %s, Producers: %s, Release Date: %s, Price: %.2f",
+                    souvenir.getName(), souvenir.getProducers().toString(), souvenir.getReleaseDate().toString(), souvenir.getPrice());
+            souvenirNames.add(souvenirInfo);
+        }
+
+        listView.setItems(souvenirNames);
+
+        vbox.getChildren().add(listView);
+
+        Scene scene = new Scene(vbox, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     public static void main(String[] args) {
         launch(args);
     }

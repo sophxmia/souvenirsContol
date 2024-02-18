@@ -3,8 +3,11 @@ package souvenirs.control;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Main extends Application {
     private DataManagerFacade dataManagerFacade;
@@ -15,21 +18,30 @@ public class Main extends Application {
 
         primaryStage.setTitle("Souvenirs Control");
 
+        TableView<Souvenir> tableView;
+
         Button addSouvenirButton = new Button("Add Souvenir");
         addSouvenirButton.setOnAction(event -> {
             AddSouvenirWindow addSouvenirWindow = new AddSouvenirWindow(dataManagerFacade);
             addSouvenirWindow.start(new Stage());
         });
+
         Button addProducerButton = new Button("Add Producer");
         addProducerButton.setOnAction(event -> {
             AddProducerWindow addProducerWindow = new AddProducerWindow(dataManagerFacade);
             addProducerWindow.start(new Stage());
         });
+
         Button editDataButton = new Button("Edit Data");
         editDataButton.setOnAction(event -> {
-            EditDataWindow editDataWindow = new EditDataWindow(dataManagerFacade);
-            editDataWindow.start(new Stage());
+            Souvenir selectedSouvenir = getSelectedSouvenir();
+            if (selectedSouvenir != null) {
+                EditDataWindow editDataWindow = new EditDataWindow(dataManagerFacade);
+                editDataWindow.setSouvenir(selectedSouvenir);
+                editDataWindow.start(new Stage());
+            }
         });
+
         Button viewDataButton = new Button("View Data");
         viewDataButton.setOnAction(event -> {
             ViewDataWindow viewDataWindow = new ViewDataWindow(dataManagerFacade);
@@ -41,6 +53,16 @@ public class Main extends Application {
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Souvenir getSelectedSouvenir() {
+        List<Souvenir> souvenirs = dataManagerFacade.getAllSouvenirs();
+
+        if (!souvenirs.isEmpty()) {
+            return souvenirs.getFirst();
+        } else {
+            return null;
+        }
     }
 
     public static void main(String[] args) {
