@@ -1,39 +1,49 @@
 package souvenirs.control;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
+    private DataManagerFacade dataManagerFacade;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        dataManagerFacade = new DataManagerFacade();
+
+        primaryStage.setTitle("Souvenirs Control");
+
+        Button addSouvenirButton = new Button("Add Souvenir");
+        addSouvenirButton.setOnAction(event -> {
+            AddSouvenirWindow addSouvenirWindow = new AddSouvenirWindow(dataManagerFacade);
+            addSouvenirWindow.start(new Stage());
+        });
+        Button addProducerButton = new Button("Add Producer");
+        addProducerButton.setOnAction(event -> {
+            AddProducerWindow addProducerWindow = new AddProducerWindow(dataManagerFacade);
+            addProducerWindow.start(new Stage());
+        });
+        Button editDataButton = new Button("Edit Data");
+        editDataButton.setOnAction(event -> {
+            EditDataWindow editDataWindow = new EditDataWindow(dataManagerFacade);
+            editDataWindow.start(new Stage());
+        });
+        Button viewDataButton = new Button("View Data");
+        viewDataButton.setOnAction(event -> {
+            ViewDataWindow viewDataWindow = new ViewDataWindow(dataManagerFacade);
+            viewDataWindow.start(new Stage());
+        });
+
+        VBox root = new VBox(10);
+        root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton);
+        Scene scene = new Scene(root, 300, 200);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
     public static void main(String[] args) {
-        DataManagerFacade dataManagerFacade = new DataManagerFacade();
-
-        Producer newProducer = new ProducerBuilder()
-                .setName("ОбщадБанк")
-                .setCountry("Великобританція")
-                .build();
-        dataManagerFacade.addProducer(newProducer);
-
-        List<Producer> producersForNewSouvenir = new ArrayList<>();
-        producersForNewSouvenir.add(newProducer);
-
-        Souvenir newSouvenir = new SouvenirBuilder()
-                .setName("Фірмова кепка")
-                .setProducers(producersForNewSouvenir)
-                .setReleaseDate(LocalDate.of(2023, 5, 20))
-                .setPrice(25.99)
-                .build();
-        dataManagerFacade.addSouvenir(newSouvenir);
-
-        System.out.println("Before editing:");
-        dataManagerFacade.displayAllSouvenirs();
-        dataManagerFacade.displayAllProducers();
-
-        dataManagerFacade.editProducer(newProducer, "МоноБанк", "Україна");
-        dataManagerFacade.editSouvenir(newSouvenir, "Котик", producersForNewSouvenir, newSouvenir.getReleaseDate(), 29.99);
-
-        System.out.println("\nAfter editing:");
-        dataManagerFacade.displayAllSouvenirs();
-        dataManagerFacade.displayAllProducers();
+        launch(args);
     }
 }
