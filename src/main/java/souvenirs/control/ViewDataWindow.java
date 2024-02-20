@@ -5,10 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ViewDataWindow extends Application {
@@ -22,24 +25,27 @@ public class ViewDataWindow extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("View Data about Souvenir");
 
-        VBox vbox = new VBox();
+        TableView<Souvenir> tableView = new TableView<>();
+        ObservableList<Souvenir> souvenirs = FXCollections.observableArrayList(dataManagerFacade.getAllSouvenirs());
+
+        TableColumn<Souvenir, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<Souvenir, List<Producer>> producersColumn = new TableColumn<>("Producers");
+        producersColumn.setCellValueFactory(new PropertyValueFactory<>("producers"));
+
+        TableColumn<Souvenir, LocalDate> releaseDateColumn = new TableColumn<>("Release Date");
+        releaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
+
+        TableColumn<Souvenir, Double> priceColumn = new TableColumn<>("Price");
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        tableView.getColumns().addAll(nameColumn, producersColumn, releaseDateColumn, priceColumn);
+        tableView.setItems(souvenirs);
+
+        VBox vbox = new VBox(tableView);
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(10);
-
-        List<Souvenir> souvenirs = dataManagerFacade.getAllSouvenirs();
-
-        ListView<String> listView = new ListView<>();
-        ObservableList<String> souvenirNames = FXCollections.observableArrayList();
-
-        for (Souvenir souvenir : souvenirs) {
-            String souvenirInfo = String.format("Name: %s, Producers: %s, Release Date: %s, Price: %.2f",
-                    souvenir.getName(), souvenir.getProducers().toString(), souvenir.getReleaseDate().toString(), souvenir.getPrice());
-            souvenirNames.add(souvenirInfo);
-        }
-
-        listView.setItems(souvenirNames);
-
-        vbox.getChildren().add(listView);
 
         Scene scene = new Scene(vbox, 600, 400);
         primaryStage.setScene(scene);
