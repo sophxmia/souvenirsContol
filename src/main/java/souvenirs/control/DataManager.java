@@ -45,6 +45,10 @@ public class DataManager {
         producer.setCountry(newCountry);
     }
 
+    public void deleteSouvenir(Souvenir souvenir) {
+        souvenirs.remove(souvenir);
+    }
+
     //display all souvenirs
     public void displayAllSouvenirs() {
         for (Souvenir souvenir : souvenirs) {

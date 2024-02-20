@@ -33,6 +33,9 @@ public class DataManagerFacade {
     public void displaySouvenirsByProducer(String producerName) {
         dataManager.displayAllSouvenirsByProducer(producerName);
     }
+    public void deleteSouvenir(Souvenir souvenir) {
+        dataManager.deleteSouvenir(souvenir);
+    }
 
     public void displaySouvenirsByCountry(String country) {
         dataManager.displayAllSouvenirsByCountry(country);
@@ -66,6 +69,14 @@ public class DataManagerFacade {
     public void addProducer(Producer producer) {
         dataManager.addProducer(producer);
         writeProducersToFile(dataManager.getAllProducers(), "src/producers.csv");
+    }
+
+    public void addProducerToSouvenir(Souvenir souvenir, Producer producer) {
+        dataManager.addProducerToSouvenir(souvenir, producer);
+    }
+
+    public void removeProducerFromSouvenir(Souvenir souvenir, Producer producer) {
+        dataManager.removeProducerFromSouvenir(souvenir, producer);
     }
 
     public void editSouvenir(Souvenir souvenir, String newName, List<Producer> newProducers, LocalDate newReleaseDate, double newPrice) {
