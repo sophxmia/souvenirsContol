@@ -87,6 +87,7 @@ public class DataManagerFacade {
     public List<Souvenir> getAllSouvenirs() {
         return dataManager.getAllSouvenirs();
     }
+
     public List<Producer> getAllProducers() {
         return dataManager.getAllProducers();
     }

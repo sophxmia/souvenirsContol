@@ -124,6 +124,7 @@ public class DataManager {
     public List<Souvenir> getAllSouvenirs() {
         return souvenirs;
     }
+
     public List<Producer> getAllProducers() {
         return producers;
     }

@@ -62,7 +62,6 @@ public class FileHandler {
     }
 
 
-
     public void writeSouvenirsToFile(List<Souvenir> souvenirs, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

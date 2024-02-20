@@ -48,7 +48,7 @@ public class AddProducerWindow extends Application {
             primaryStage.close();
         });
 
-        grid.getChildren().addAll(nameLabel,nameInput,countryLabel, countryInput, addButton);
+        grid.getChildren().addAll(nameLabel, nameInput, countryLabel, countryInput, addButton);
         Scene scene = new Scene(grid, 300, 200);
         primaryStage.setScene(scene);
         primaryStage.show();
