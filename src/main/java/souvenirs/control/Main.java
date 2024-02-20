@@ -51,11 +51,29 @@ public class Main extends Application {
             showFilterMenu.start(new Stage());
         });
 
+        Button deleteProducerAndSouvenirsButton = new Button("Delete Producer and Souvenirs");
+        deleteProducerAndSouvenirsButton.setOnAction(event -> {
+            Producer selectedProducer = getSelectedProducer();
+            if (selectedProducer != null) {
+                dataManagerFacade.deleteProducerAndSouvenirs(selectedProducer);
+            }
+        });
+
         VBox root = new VBox(10);
-        root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton, filterButton);
+        root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton, filterButton, deleteProducerAndSouvenirsButton);
         Scene scene = new Scene(root, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Producer getSelectedProducer() {
+        List<Producer> producers = dataManagerFacade.getAllProducers();
+
+        if (producers != null && !producers.isEmpty()) {
+            return producers.getFirst();
+        } else {
+            return null;
+        }
     }
 
     private Souvenir getSelectedSouvenir() {
