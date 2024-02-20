@@ -33,6 +33,7 @@ public class ShowFilterMenu extends Application {
 
         Button filterByProducerButton = new Button("Filter by Producer");
         filterByProducerButton.setOnAction(event -> {
+            grid.getChildren().addAll(producerLabel, producerInput);
             String producerName = producerInput.getText();
             dataManagerFacade.displaySouvenirsByProducer(producerName);
         });
@@ -46,6 +47,7 @@ public class ShowFilterMenu extends Application {
 
         Button filterByCountryButton = new Button("Filter by Country");
         filterByCountryButton.setOnAction(event -> {
+            grid.getChildren().addAll(countryLabel, countryNameInput);
             String countryName = countryNameInput.getText();
             dataManagerFacade.displaySouvenirsByCountry(countryName);
         });
@@ -54,11 +56,12 @@ public class ShowFilterMenu extends Application {
         Label yearLabel = new Label("Year:");
         GridPane.setConstraints(yearLabel, 0, 1);
         TextField yearInput = new TextField();
-        yearInput.setPromptText("Enter country ");
+        yearInput.setPromptText("Enter year ");
         GridPane.setConstraints(yearInput, 1, 1);
 
         Button filterSouvenirsByYear = new Button("Filter by Year");
         filterSouvenirsByYear.setOnAction(event -> {
+            grid.getChildren().addAll(yearLabel, yearInput);
             int year = Integer.parseInt(yearInput.getText());
             dataManagerFacade.displaySouvenirsByYear(year);
         });
@@ -67,20 +70,19 @@ public class ShowFilterMenu extends Application {
         Label priceLabel = new Label("Price:");
         GridPane.setConstraints(priceLabel, 0, 1);
         TextField priceInput = new TextField();
-        priceInput.setPromptText("Enter country ");
+        priceInput.setPromptText("Enter price ");
         GridPane.setConstraints(priceInput, 1, 1);
 
         Button filterProducersWithPriceBelow = new Button("Filter by Price");
         filterProducersWithPriceBelow.setOnAction(event -> {
+            grid.getChildren().addAll(priceLabel, priceInput);
             int price = Integer.parseInt(priceInput.getText());
             dataManagerFacade.displayProducersWithPriceBelow(price);
         });
         GridPane.setConstraints(filterProducersWithPriceBelow, 1, 1);
 
         Button filterAllProducersWithSouvenirs = new Button("Filter by all Producer's souvenirs");
-        filterAllProducersWithSouvenirs.setOnAction(event -> {
-            dataManagerFacade.displayAllProducersWithSouvenirs();
-        });
+        filterAllProducersWithSouvenirs.setOnAction(event -> dataManagerFacade.displayAllProducersWithSouvenirs());
         GridPane.setConstraints(filterAllProducersWithSouvenirs, 0, 2);
 
         grid.getChildren().addAll(filterByProducerButton, filterByCountryButton, filterSouvenirsByYear, filterProducersWithPriceBelow, filterAllProducersWithSouvenirs);
