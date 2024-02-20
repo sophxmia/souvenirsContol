@@ -41,33 +41,41 @@ public class AddSouvenirWindow extends Application {
         producerInput.setPromptText("Enter producer name");
         GridPane.setConstraints(producerInput, 1, 1);
 
+        Label countryLabel = new Label("Country:");
+        GridPane.setConstraints(countryLabel, 0, 2);
+        TextField countryInput = new TextField();
+        countryInput.setPromptText("Enter country's name");
+        GridPane.setConstraints(countryInput, 1, 2);
+
         Label releaseDateLabel = new Label("Release Date:");
-        GridPane.setConstraints(releaseDateLabel, 0, 2);
+        GridPane.setConstraints(releaseDateLabel, 0, 3);
         TextField releaseDateInput = new TextField();
         releaseDateInput.setPromptText("YYYY-MM-DD");
-        GridPane.setConstraints(releaseDateInput, 1, 2);
+        GridPane.setConstraints(releaseDateInput, 1, 3);
 
         Label priceLabel = new Label("Price:");
-        GridPane.setConstraints(priceLabel, 0, 3);
+        GridPane.setConstraints(priceLabel, 0, 4);
         TextField priceInput = new TextField();
         priceInput.setPromptText("Enter price");
-        GridPane.setConstraints(priceInput, 1, 3);
+        GridPane.setConstraints(priceInput, 1, 4);
 
         Button addButton = new Button("Add Souvenir");
-        GridPane.setConstraints(addButton, 1, 4);
+        GridPane.setConstraints(addButton, 1, 5);
         addButton.setOnAction(e -> {
             String name = nameInput.getText();
             String producerName = producerInput.getText();
+            String countryName = countryInput.getText();
             LocalDate releaseDate = LocalDate.parse(releaseDateInput.getText());
             double price = Double.parseDouble(priceInput.getText());
 
-            Producer producer = new Producer(producerName, "Country");
+            Producer producer = new Producer(producerName, countryName);
             Souvenir souvenir = new Souvenir(name, Collections.singletonList(producer), releaseDate, price);
             dataManagerFacade.addSouvenir(souvenir);
+            dataManagerFacade.addProducer(producer);
             primaryStage.close();
         });
 
-        grid.getChildren().addAll(nameLabel, nameInput, producerLabel, producerInput, releaseDateLabel, releaseDateInput, priceLabel, priceInput, addButton);
+        grid.getChildren().addAll(nameLabel, nameInput, producerLabel, producerInput, countryLabel, countryInput, releaseDateLabel, releaseDateInput, priceLabel, priceInput, addButton);
 
         Scene scene = new Scene(grid, 300, 200);
         primaryStage.setScene(scene);

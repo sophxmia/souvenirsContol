@@ -37,7 +37,7 @@ public class AddProducerWindow extends Application {
         countryInput.setPromptText("Enter country's name");
         GridPane.setConstraints(countryInput, 1, 1);
 
-        Button addButton = new Button("Add Souvenir");
+        Button addButton = new Button("Add Producer");
         GridPane.setConstraints(addButton, 1, 4);
 
         addButton.setOnAction(e -> {

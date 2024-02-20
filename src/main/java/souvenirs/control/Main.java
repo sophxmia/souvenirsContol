@@ -61,7 +61,7 @@ public class Main extends Application {
 
         VBox root = new VBox(10);
         root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton, filterButton, deleteProducerAndSouvenirsButton);
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 300, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -78,6 +78,7 @@ public class Main extends Application {
 
     private Souvenir getSelectedSouvenir() {
         List<Souvenir> souvenirs = dataManagerFacade.getAllSouvenirs();
+
         if (!souvenirs.isEmpty()) {
             return souvenirs.getFirst();
         } else {
