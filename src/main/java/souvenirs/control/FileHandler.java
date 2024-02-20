@@ -22,30 +22,37 @@ public class FileHandler {
 
     public List<Souvenir> readSouvenirsFromFile(String fileName) {
         List<Souvenir> souvenirs = new ArrayList<>();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
+            int lineNumber = 0; // Add this line
             while ((line = reader.readLine()) != null) {
+                lineNumber++; // Add this line
                 String[] data = line.split((","));
-                String name = data[0];
-
-                String[] producersData = data[1].split(",");
-                List<Producer> producers = new ArrayList<>();
-                for (String producerData : producersData) {
-                    String[] producerInfo = producerData.split("\\(");
-                    String producerName = producerInfo[0];
-                    String country = producerInfo[1].substring(0, producerInfo[1].length() - 1);
-                    Producer producer = new Producer(producerName, country);
-                    producers.add(producer);
+                if (data.length < 4) { // Add this condition to handle incomplete lines
+                    System.err.println("Incomplete data in line " + lineNumber + ": " + line);
+                    continue; // Skip this line
                 }
-
-                LocalDate releaseDate = LocalDate.parse(data[2], formatter);
-                double price = Double.parseDouble(data[3]);
-
-                Souvenir souvenir = new Souvenir(name, producers, releaseDate, price);
-                souvenirs.add(souvenir);
+                try {
+                    String name = data[0];
+                    String[] producersData = data[1].split(",");
+                    List<Producer> producers = new ArrayList<>();
+                    for (String producerData : producersData) {
+                        String[] producerInfo = producerData.split("\\(");
+                        String producerName = producerInfo[0];
+                        String country = producerInfo[1].substring(0, producerInfo[1].length() - 1);
+                        Producer producer = new Producer(producerName, country);
+                        producers.add(producer);
+                    }
+                    LocalDate releaseDate = LocalDate.parse(data[2], formatter);
+                    double price = Double.parseDouble(data[3]);
+                    Souvenir souvenir = new Souvenir(name, producers, releaseDate, price);
+                    souvenirs.add(souvenir);
+                } catch (Exception e) {
+                    System.err.println("Error parsing line " + lineNumber + ": " + line);
+                    e.printStackTrace();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -53,6 +60,7 @@ public class FileHandler {
 
         return souvenirs;
     }
+
 
 
     public void writeSouvenirsToFile(List<Souvenir> souvenirs, String fileName) {

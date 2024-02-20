@@ -1,4 +1,5 @@
 package souvenirs.control;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -24,52 +25,54 @@ public class ShowFilterMenu extends Application {
         grid.setVgap(5);
         grid.setHgap(5);
 
+        Label producerLabel = new Label("Producer:");
+        GridPane.setConstraints(producerLabel, 0, 1);
+        TextField producerInput = new TextField();
+        producerInput.setPromptText("Enter producer name");
+        GridPane.setConstraints(producerInput, 1, 1);
+
         Button filterByProducerButton = new Button("Filter by Producer");
         filterByProducerButton.setOnAction(event -> {
-            Label producerLabel = new Label("Producer:");
-            GridPane.setConstraints(producerLabel, 0, 1);
-            TextField producerInput = new TextField();
-            producerInput.setPromptText("Enter producer name");
-            GridPane.setConstraints(producerInput, 1, 1);
             String producerName = producerInput.getText();
             dataManagerFacade.displaySouvenirsByProducer(producerName);
         });
         GridPane.setConstraints(filterByProducerButton, 0, 0);
 
+        Label countryLabel = new Label("Country:");
+        GridPane.setConstraints(countryLabel, 0, 1);
+        TextField countryNameInput = new TextField();
+        countryNameInput.setPromptText("Enter country ");
+        GridPane.setConstraints(countryNameInput, 1, 1);
+
         Button filterByCountryButton = new Button("Filter by Country");
         filterByCountryButton.setOnAction(event -> {
-            Label countryLabel = new Label("Country:");
-            GridPane.setConstraints(countryLabel, 0, 1);
-            TextField countryNameInput = new TextField();
-            countryNameInput.setPromptText("Enter country ");
             String countryName = countryNameInput.getText();
-            GridPane.setConstraints(countryNameInput, 1, 1);
             dataManagerFacade.displaySouvenirsByCountry(countryName);
         });
         GridPane.setConstraints(filterByCountryButton, 1, 0);
 
+        Label yearLabel = new Label("Year:");
+        GridPane.setConstraints(yearLabel, 0, 1);
+        TextField yearInput = new TextField();
+        yearInput.setPromptText("Enter country ");
+        GridPane.setConstraints(yearInput, 1, 1);
 
         Button filterSouvenirsByYear = new Button("Filter by Year");
         filterSouvenirsByYear.setOnAction(event -> {
-            Label yearLabel = new Label("Year:");
-            GridPane.setConstraints(yearLabel, 0, 1);
-            TextField yearInput = new TextField();
-            yearInput.setPromptText("Enter country ");
             int year = Integer.parseInt(yearInput.getText());
-            GridPane.setConstraints(yearInput, 1, 1);
             dataManagerFacade.displaySouvenirsByYear(year);
         });
         GridPane.setConstraints(filterSouvenirsByYear, 0, 1);
 
+        Label priceLabel = new Label("Price:");
+        GridPane.setConstraints(priceLabel, 0, 1);
+        TextField priceInput = new TextField();
+        priceInput.setPromptText("Enter country ");
+        GridPane.setConstraints(priceInput, 1, 1);
 
         Button filterProducersWithPriceBelow = new Button("Filter by Price");
         filterProducersWithPriceBelow.setOnAction(event -> {
-            Label priceLabel = new Label("Price:");
-            GridPane.setConstraints(priceLabel, 0, 1);
-            TextField priceInput = new TextField();
-            priceInput.setPromptText("Enter country ");
             int price = Integer.parseInt(priceInput.getText());
-            GridPane.setConstraints(priceInput, 1, 1);
             dataManagerFacade.displayProducersWithPriceBelow(price);
         });
         GridPane.setConstraints(filterProducersWithPriceBelow, 1, 1);
