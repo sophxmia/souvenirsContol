@@ -51,7 +51,7 @@ public class FileHandler {
                     souvenirs.add(souvenir);
                 } catch (Exception e) {
                     System.err.println("Error parsing line " + lineNumber + ": " + line);
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
         } catch (IOException e) {

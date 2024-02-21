@@ -49,20 +49,6 @@ public class DataManager {
         souvenirs.remove(souvenir);
     }
 
-    //display all souvenirs
-    public void displayAllSouvenirs() {
-        for (Souvenir souvenir : souvenirs) {
-            System.out.println(souvenir);
-        }
-    }
-
-    //display all producers
-    public void displayAllProducers() {
-        for (Producer producer : producers) {
-            System.out.println(producer);
-        }
-    }
-
     public void displayAllSouvenirsByProducer(String producerName) {
         System.out.println("Producer: " + producerName);
         for (Souvenir souvenir : souvenirs) {
@@ -83,7 +69,7 @@ public class DataManager {
         System.out.println("Max price:" + maxPrice);
         for (Producer producer : producers) {
             boolean hasSouvenirBelowPrice = souvenirs.stream()
-                    .anyMatch(souvenir -> souvenir.getProducers().contains(producer) && souvenir.getPrice() < maxPrice);
+                    .anyMatch(souvenir -> souvenir.getProducers().contains(producer) && souvenir.getPrice() <= maxPrice);
             if (hasSouvenirBelowPrice) {
                 System.out.println(producer);
             }
