@@ -64,6 +64,7 @@ public class DataManager {
     }
 
     public void displayAllSouvenirsByProducer(String producerName) {
+        System.out.println("Producer: " + producerName);
         for (Souvenir souvenir : souvenirs) {
             if (souvenir.getProducers().stream().anyMatch(producer -> producer.getName().equals(producerName)))
                 System.out.println(souvenir);
@@ -71,13 +72,15 @@ public class DataManager {
     }
 
     public void displayAllSouvenirsByCountry(String countryName) {
+        System.out.println("Country: " + countryName);
         for (Souvenir souvenir : souvenirs) {
-            if (souvenir.getProducers().stream().anyMatch(producer -> producer.getName().equals(countryName)))
+            if (souvenir.getProducers().stream().anyMatch(producer -> producer.getCountry().equals(countryName)))
                 System.out.println(souvenir);
         }
     }
 
     public void displayProducersWithPriceBelow(double maxPrice) {
+        System.out.println("Max price:" + maxPrice);
         for (Producer producer : producers) {
             boolean hasSouvenirBelowPrice = souvenirs.stream()
                     .anyMatch(souvenir -> souvenir.getProducers().contains(producer) && souvenir.getPrice() < maxPrice);
@@ -99,9 +102,9 @@ public class DataManager {
     }
 
     public void displayProducersOfSouvenirInYear(String souvenirName, int year) {
+        System.out.println("Producers of souvenir '" + souvenirName + "' produced in " + year + ":");
         for (Souvenir souvenir : souvenirs) {
             if (souvenir.getName().equals(souvenirName) && souvenir.getReleaseDate().getYear() == year) {
-                System.out.println("Producers of souvenir '" + souvenirName + "' produced in " + year + ":");
                 for (Producer producer : souvenir.getProducers()) {
                     System.out.println(producer);
                 }

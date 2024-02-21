@@ -45,7 +45,7 @@ public class ShowFilterMenu extends Application {
         Button filterAllProducersWithSouvenirsButton = new Button("Filter by all Producer's souvenirs");
         filterAllProducersWithSouvenirsButton.setOnAction(event -> dataManagerFacade.displayAllProducersWithSouvenirs());
 
-        mainLayout.getChildren().addAll(filterByProducerButton, filterByCountryButton, filterByYearButton, filterByPriceButton, filterAllProducersWithSouvenirsButton);
+        mainLayout.getChildren().addAll(filterByProducerButton, filterByCountryButton, filterByYearButton, filterByPriceButton,filterProducersOfSouvenirInYearButton, filterAllProducersWithSouvenirsButton);
 
         Scene scene = new Scene(mainLayout, 300, 200);
         primaryStage.setScene(scene);
