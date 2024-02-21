@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 
 public class AddSouvenirWindow extends Application {
 
@@ -67,11 +68,23 @@ public class AddSouvenirWindow extends Application {
             String countryName = countryInput.getText();
             LocalDate releaseDate = LocalDate.parse(releaseDateInput.getText());
             double price = Double.parseDouble(priceInput.getText());
+            Producer producer = null;
+            List<Producer> producers = dataManagerFacade.getAllProducers();
+            for (Producer existingProducer : producers) {
+                if (existingProducer.getName().equalsIgnoreCase(producerName)) {
+                    producer = existingProducer;
+                    break;
+                }
+            }
 
-            Producer producer = new Producer(producerName, countryName);
+            if (producer == null) {
+                producer = new Producer(producerName, countryName);
+                dataManagerFacade.addProducer(producer);
+            }
+
             Souvenir souvenir = new Souvenir(name, Collections.singletonList(producer), releaseDate, price);
             dataManagerFacade.addSouvenir(souvenir);
-            dataManagerFacade.addProducer(producer);
+
             primaryStage.close();
         });
 
