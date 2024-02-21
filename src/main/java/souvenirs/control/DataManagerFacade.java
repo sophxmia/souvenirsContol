@@ -35,6 +35,7 @@ public class DataManagerFacade {
     }
     public void deleteSouvenir(Souvenir souvenir) {
         dataManager.deleteSouvenir(souvenir);
+        writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
     }
 
     public void displaySouvenirsByCountry(String country) {
@@ -81,6 +82,7 @@ public class DataManagerFacade {
 
     public void editSouvenir(Souvenir souvenir, String newName, List<Producer> newProducers, LocalDate newReleaseDate, double newPrice) {
         dataManager.editSouvenir(souvenir, newName, newProducers, newReleaseDate, newPrice);
+        writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
     }
 
     public void editProducer(Producer producer, String newName, String newCountry) {
