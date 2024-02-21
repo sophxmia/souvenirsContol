@@ -110,13 +110,11 @@ public class DataManager {
     }
 
     public void displaySouvenirsByYear(int year) {
-        for (int yearNow = year; yearNow >= 1990; yearNow--) {
-            System.out.println("Year: " + year);
-            for (Souvenir souvenir : souvenirs) {
-                if (souvenir.getReleaseDate().getYear() == year) System.out.println(souvenir);
-            }
-            System.out.println();
+        System.out.println("Year: " + year);
+        for (Souvenir souvenir : souvenirs) {
+            if (souvenir.getReleaseDate().getYear() == year) System.out.println(souvenir);
         }
+        System.out.println();
 
     }
 
