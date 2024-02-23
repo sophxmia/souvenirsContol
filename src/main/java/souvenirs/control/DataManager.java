@@ -18,12 +18,17 @@ public class DataManager {
     public void addSouvenir(Souvenir souvenir) {
         List<Integer> producerIds = new ArrayList<>();
         for (Producer producer : souvenir.getProducers()) {
+            if (!producers.contains(producer)) {
+                // Додати виробника, якщо він ще не існує у списку виробників
+                addProducer(producer);
+            }
             producerIds.add(producer.getId());
         }
         souvenir.setProducerIds(producerIds);
 
         souvenirs.add(souvenir);
     }
+
 
 
     // add new producer
@@ -74,10 +79,11 @@ public class DataManager {
     }
 
     public void displayProducersWithPriceBelow(double maxPrice) {
-        System.out.println("Max price:" + maxPrice);
+        System.out.println("Max price: " + maxPrice);
         for (Producer producer : producers) {
             boolean hasSouvenirBelowPrice = souvenirs.stream()
-                    .anyMatch(souvenir -> souvenir.getProducers().contains(producer) && souvenir.getPrice() <= maxPrice);
+                    .filter(souvenir -> souvenir.getProducerIds().contains(producer.getId()))
+                    .anyMatch(souvenir -> souvenir.getPrice() < maxPrice);
             if (hasSouvenirBelowPrice) {
                 System.out.println(producer);
             }

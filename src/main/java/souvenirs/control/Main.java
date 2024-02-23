@@ -3,10 +3,13 @@ package souvenirs.control;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Main extends Application {
     private DataManagerFacade dataManagerFacade;
@@ -69,9 +72,28 @@ public class Main extends Application {
     private Producer getSelectedProducer() {
         List<Producer> producers = dataManagerFacade.getAllProducers();
 
-        if (producers != null && !producers.isEmpty()) {
-            return producers.getFirst();
+        // Створюємо список імен виробників для діалогового вікна
+        List<String> producerNames = producers.stream()
+                .map(Producer::getName)
+                .collect(Collectors.toList());
+
+        // Створюємо діалогове вікно з вибором виробника
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(producerNames.getFirst(), producerNames);
+        dialog.setTitle("Select Producer");
+        dialog.setHeaderText("Select a producer to delete");
+        dialog.setContentText("Producer:");
+
+        // Показуємо діалогове вікно і чекаємо на вибір виробника
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String selectedProducerName = result.get();
+            // Знаходимо об'єкт виробника за ім'ям
+            return producers.stream()
+                    .filter(p -> p.getName().equals(selectedProducerName))
+                    .findFirst()
+                    .orElse(null);
         } else {
+            // Якщо користувач не обрав виробника, повертаємо null
             return null;
         }
     }

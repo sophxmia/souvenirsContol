@@ -1,6 +1,7 @@
 package souvenirs.control;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Souvenir {
@@ -23,6 +24,10 @@ public class Souvenir {
         this.producers = producers;
         this.releaseDate = releaseDate;
         this.price = price;
+        this.producerIds = new ArrayList<>();
+        for (Producer producer : producers) {
+            this.producerIds.add(producer.getId());
+        }
     }
 
     public String getName() {

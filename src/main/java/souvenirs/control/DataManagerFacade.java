@@ -54,8 +54,9 @@ public class DataManagerFacade {
 
     public void deleteProducerAndSouvenirs(Producer producer) {
         dataManager.deleteProducerAndSouvenirs(producer);
+        writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
+        writeProducersToFile(dataManager.getAllProducers(), "src/producers.csv");
     }
-
     public void addSouvenir(Souvenir souvenir) {
         List<Integer> producerIds = new ArrayList<>();
         for (Producer producer : souvenir.getProducers()) {
