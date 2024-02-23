@@ -1,6 +1,7 @@
 package souvenirs.control;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataManager {
@@ -15,8 +16,15 @@ public class DataManager {
 
     // add new souvenir
     public void addSouvenir(Souvenir souvenir) {
+        List<Integer> producerIds = new ArrayList<>();
+        for (Producer producer : souvenir.getProducers()) {
+            producerIds.add(producer.getId());
+        }
+        souvenir.setProducerIds(producerIds);
+
         souvenirs.add(souvenir);
     }
+
 
     // add new producer
     public void addProducer(Producer producer) {
@@ -81,11 +89,15 @@ public class DataManager {
             System.out.println("Producer: " + producer);
             System.out.println("Souvenirs:");
             for (Souvenir souvenir : souvenirs) {
-                if (souvenir.getProducers().contains(producer)) System.out.println(souvenir);
+                if (souvenir.getProducers().stream().anyMatch(p -> p.getName().equals(producer.getName()))) {
+                    System.out.println(souvenir);
+                }
             }
             System.out.println();
         }
     }
+
+
 
     public void displayProducersOfSouvenirInYear(String souvenirName, int year) {
         System.out.println("Producers of souvenir '" + souvenirName + "' produced in " + year + ":");

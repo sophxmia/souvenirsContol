@@ -8,6 +8,7 @@ public class Souvenir {
     private List<Producer> producers;
     private LocalDate releaseDate;
     private Double price;
+    private List<Integer> producerIds;
 
     /**
      * Class constructor
@@ -69,5 +70,13 @@ public class Souvenir {
                 ", releaseDate=" + releaseDate +
                 ", price=" + price +
                 '}';
+    }
+
+    public List<Integer> getProducerIds() {
+        return producerIds;
+    }
+
+    public void setProducerIds(List<Integer> producerIds) {
+        this.producerIds = producerIds;
     }
 }

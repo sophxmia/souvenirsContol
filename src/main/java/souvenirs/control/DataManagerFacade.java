@@ -1,6 +1,7 @@
 package souvenirs.control;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 // usage of Facade pattern
@@ -56,9 +57,16 @@ public class DataManagerFacade {
     }
 
     public void addSouvenir(Souvenir souvenir) {
+        List<Integer> producerIds = new ArrayList<>();
+        for (Producer producer : souvenir.getProducers()) {
+            producerIds.add(producer.getId());
+        }
+        souvenir.setProducerIds(producerIds);
+
         dataManager.addSouvenir(souvenir);
         writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
     }
+
 
     public void addProducer(Producer producer) {
         dataManager.addProducer(producer);

@@ -4,6 +4,8 @@ public class Producer {
     private String name;
     private String country;
 
+    private int id;
+
     /**
      * Class constructor
      *
@@ -43,4 +45,13 @@ public class Producer {
                 ", country='" + country + '\'' +
                 '}';
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
