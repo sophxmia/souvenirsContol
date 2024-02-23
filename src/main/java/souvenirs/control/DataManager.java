@@ -79,16 +79,16 @@ public class DataManager {
     }
 
     public void displayProducersWithPriceBelow(double maxPrice) {
-        System.out.println("Max price: " + maxPrice);
-        for (Producer producer : producers) {
-            boolean hasSouvenirBelowPrice = souvenirs.stream()
-                    .filter(souvenir -> souvenir.getProducerIds().contains(producer.getId()))
-                    .anyMatch(souvenir -> souvenir.getPrice() < maxPrice);
-            if (hasSouvenirBelowPrice) {
-                System.out.println(producer);
+        System.out.println("Producers with souvenir prices below " + maxPrice + ":");
+        for (Souvenir souvenir : souvenirs) {
+            if (souvenir.getPrice() < maxPrice) {
+                for (Producer producer : souvenir.getProducers()) {
+                    System.out.println(producer);
+                }
             }
         }
     }
+
 
     public void displayAllProducersWithSouvenirs() {
         for (Producer producer : producers) {
