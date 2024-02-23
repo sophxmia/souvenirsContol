@@ -29,19 +29,9 @@ public class DataManager {
         souvenirs.add(souvenir);
     }
 
-
-
     // add new producer
     public void addProducer(Producer producer) {
         producers.add(producer);
-    }
-
-    public void addProducerToSouvenir(Souvenir souvenir, Producer producer) {
-        souvenir.getProducers().add(producer);
-    }
-
-    public void removeProducerFromSouvenir(Souvenir souvenir, Producer producer) {
-        souvenir.getProducers().remove(producer);
     }
 
     // edit already existing souvenir
@@ -50,12 +40,6 @@ public class DataManager {
         souvenir.setProducers(newProducers);
         souvenir.setReleaseDate(newReleaseDate);
         souvenir.setPrice(newPrice);
-    }
-
-    // edit already existing producer
-    public void editProducer(Producer producer, String newName, String newCountry) {
-        producer.setName(newName);
-        producer.setCountry(newCountry);
     }
 
     public void deleteSouvenir(Souvenir souvenir) {
@@ -102,7 +86,6 @@ public class DataManager {
             System.out.println();
         }
     }
-
 
 
     public void displayProducersOfSouvenirInYear(String souvenirName, int year) {

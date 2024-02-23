@@ -57,6 +57,7 @@ public class DataManagerFacade {
         writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
         writeProducersToFile(dataManager.getAllProducers(), "src/producers.csv");
     }
+
     public void addSouvenir(Souvenir souvenir) {
         List<Integer> producerIds = new ArrayList<>();
         for (Producer producer : souvenir.getProducers()) {
@@ -74,21 +75,9 @@ public class DataManagerFacade {
         writeProducersToFile(dataManager.getAllProducers(), "src/producers.csv");
     }
 
-    public void addProducerToSouvenir(Souvenir souvenir, Producer producer) {
-        dataManager.addProducerToSouvenir(souvenir, producer);
-    }
-
-    public void removeProducerFromSouvenir(Souvenir souvenir, Producer producer) {
-        dataManager.removeProducerFromSouvenir(souvenir, producer);
-    }
-
     public void editSouvenir(Souvenir souvenir, String newName, List<Producer> newProducers, LocalDate newReleaseDate, double newPrice) {
         dataManager.editSouvenir(souvenir, newName, newProducers, newReleaseDate, newPrice);
         writeSouvenirsToFile(dataManager.getAllSouvenirs(), "src/souvenirs.csv");
-    }
-
-    public void editProducer(Producer producer, String newName, String newCountry) {
-        dataManager.editProducer(producer, newName, newCountry);
     }
 
     public List<Souvenir> getAllSouvenirs() {

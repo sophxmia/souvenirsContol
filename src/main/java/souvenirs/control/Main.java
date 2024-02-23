@@ -31,17 +31,6 @@ public class Main extends Application {
             AddProducerWindow addProducerWindow = new AddProducerWindow(dataManagerFacade);
             addProducerWindow.start(new Stage());
         });
-
-        Button editDataButton = new Button("Edit Data");
-        editDataButton.setOnAction(event -> {
-            Souvenir selectedSouvenir = getSelectedSouvenir();
-            if (selectedSouvenir != null) {
-                EditDataWindow editDataWindow = new EditDataWindow(dataManagerFacade);
-                editDataWindow.setSouvenir(selectedSouvenir);
-                editDataWindow.start(new Stage());
-            }
-        });
-
         Button viewDataButton = new Button("View Data");
         viewDataButton.setOnAction(event -> {
             ViewDataWindow viewDataWindow = new ViewDataWindow(dataManagerFacade);
@@ -63,8 +52,8 @@ public class Main extends Application {
         });
 
         VBox root = new VBox(10);
-        root.getChildren().addAll(addSouvenirButton, addProducerButton, editDataButton, viewDataButton, filterButton, deleteProducerAndSouvenirsButton);
-        Scene scene = new Scene(root, 300, 300);
+        root.getChildren().addAll(addSouvenirButton, addProducerButton, viewDataButton, filterButton, deleteProducerAndSouvenirsButton);
+        Scene scene = new Scene(root, 300, 200);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -94,16 +83,6 @@ public class Main extends Application {
                     .orElse(null);
         } else {
             // Якщо користувач не обрав виробника, повертаємо null
-            return null;
-        }
-    }
-
-    private Souvenir getSelectedSouvenir() {
-        List<Souvenir> souvenirs = dataManagerFacade.getAllSouvenirs();
-
-        if (!souvenirs.isEmpty()) {
-            return souvenirs.getFirst();
-        } else {
             return null;
         }
     }

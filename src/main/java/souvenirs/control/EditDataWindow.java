@@ -10,9 +10,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EditDataWindow extends Application {
     private final DataManagerFacade dataManagerFacade;
@@ -41,10 +41,10 @@ public class EditDataWindow extends Application {
         nameField.setPromptText("Enter souvenir name");
         GridPane.setConstraints(nameField, 1, 0);
 
-        Label producerLabel = new Label("Producer:");
+        Label producerLabel = new Label("Producers:");
         GridPane.setConstraints(producerLabel, 0, 1);
-        TextField producerField = new TextField(souvenir.getProducers().toString());
-        producerField.setPromptText("Enter producer name");
+        TextField producerField = new TextField(souvenir.getProducers().stream().map(Producer::getName).collect(Collectors.joining(", ")));
+        producerField.setPromptText("Enter producer names separated by commas");
         GridPane.setConstraints(producerField, 1, 1);
 
         Label releaseDateLabel = new Label("Release Date:");
@@ -63,12 +63,11 @@ public class EditDataWindow extends Application {
         GridPane.setConstraints(saveButton, 1, 4);
         saveButton.setOnAction(event -> {
             String newName = nameField.getText();
-            String producersString = producerField.getText();
-            List<Producer> newProducers = Arrays.stream(producersString.substring(1, producersString.length() - 1).split(", "))
-                    .map(producerInfo -> {
-                        String[] info = producerInfo.split("\\(");
-                        return new Producer(info[0], info[1].substring(0, info[1].length() - 1));
-                    })
+            List<Producer> newProducers = Stream.of(producerField.getText().split(","))
+                    .map(String::trim)
+                    .map(name -> dataManagerFacade.getAllProducers().stream()
+                            .filter(producer -> producer.getName().equalsIgnoreCase(name))
+                            .findFirst().orElseGet(() -> new Producer(name, "")))
                     .collect(Collectors.toList());
             LocalDate newReleaseDate = LocalDate.parse(releaseDateField.getText());
             double newPrice = Double.parseDouble(priceField.getText());
@@ -77,7 +76,7 @@ public class EditDataWindow extends Application {
             primaryStage.close();
         });
 
-        grid.getChildren().addAll(nameLabel, nameField, producerField, releaseDateLabel, releaseDateField, priceLabel, priceField, saveButton);
+        grid.getChildren().addAll(nameLabel, nameField, producerLabel, producerField, releaseDateLabel, releaseDateField, priceLabel, priceField, saveButton);
         Scene scene = new Scene(grid, 300, 200);
         primaryStage.setScene(scene);
         primaryStage.show();
